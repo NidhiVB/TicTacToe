@@ -4,94 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tic-Tac-Toe Game</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: aqua;
-      text-align: center;
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      height: 70vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .game {
-      height: 60vmin;
-      width: 60vmin;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5vmin;
-    }
-    .box {
-      height: 18vmin;
-      width: 18vmin;
-      border-radius: 1rem;
-      border: none;
-      box-shadow: 0 0 1rem grey;
-      font-size: 8vmin;
-      color: black;
-      background-color: white;
-      cursor: pointer;
-    }
-    #reset-button, #new-button {
-      padding: 1rem;
-      font-size: 1.25rem;
-      background-color: black;
-      color: white;
-      border-radius: 1rem;
-      border: none;
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-    #msg {
-      color: aliceblue;
-      font-size: 5vmin;
-      margin-bottom: 1rem;
-    }
-    .msg-container {
-      height: 30vmin;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: blue;
-      border-radius: 1rem;
-      margin-bottom: 1rem;
-    }
-    .hide {
-      display: none;
-    }
-  </style>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="msg-container hide">
-    <p id="msg">Winner</p>
-    <button id="new-button">New game</button>
+<body class="bg-cyan-300 text-center font-sans min-h-screen">
+
+  <div class="msg-container fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-80 z-50 hidden">
+    <p id="msg" class="text-white text-3xl mb-4">Winner</p>
+    <button id="new-button" class="px-6 py-3 text-lg rounded-xl bg-black text-white shadow-lg hover:bg-gray-700 transition">New game</button>
   </div>
+
   <main>
-    <h1>Tic Tac Toe</h1>
-    <div class="container">
-      <div class="game">
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
-        <button class="box"></button>
+    <h1 class="text-4xl font-extrabold mt-10 mb-8">Tic Tac Toe</h1>
+    <div class="container min-h-[70vh] flex justify-center items-center">
+      <div class="game w-[60vmin] h-[60vmin] flex flex-wrap justify-center items-center gap-[1.5vmin]">
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
+        <button class="box w-[18vmin] h-[18vmin] rounded-xl border-none shadow-md text-black bg-white text-6xl cursor-pointer font-semibold"></button>
       </div>
     </div>
-    <button id="reset-button">Reset button</button>
+    <button id="reset-button" class="px-6 py-3 text-lg rounded-xl bg-black text-white shadow-lg hover:bg-gray-700 transition mt-5">Reset</button>
   </main>
 
   <script>
@@ -101,27 +39,19 @@
     let msgContainer = document.querySelector(".msg-container");
     let msg = document.querySelector("#msg");
     let turnO = true;
-
     const winPatterns = [
-      [0,1,2],
-      [3,4,5],
-      [6,7,8],
-      [0,3,6],
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6]
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
     ];
-
     const resetGame = () => {
       turnO = true;
       enableBoxes();
-      msgContainer.classList.add("hide");
+      msgContainer.classList.add("hidden");
     };
-
     boxes.forEach(box => {
       box.addEventListener("click", () => {
-        if(box.innerText === "") { // prevent overwriting
+        if(box.innerText === "") {
           box.innerText = turnO ? "O" : "X";
           turnO = !turnO;
           box.disabled = true;
@@ -131,24 +61,20 @@
         }
       });
     });
-
     const disableBoxes = () => {
       boxes.forEach(box => box.disabled = true);
     };
-
     const enableBoxes = () => {
       boxes.forEach(box => {
         box.disabled = false;
         box.innerText = "";
       });
     };
-
     const showWinner = (winner) => {
       msg.innerText = `Congratulations, Winner is ${winner}`;
-      msgContainer.classList.remove("hide");
+      msgContainer.classList.remove("hidden");
       disableBoxes();
     };
-
     const checkWinner = () => {
       for (let pattern of winPatterns) {
         let pos1Val = boxes[pattern[0]].innerText;
@@ -161,15 +87,13 @@
       }
       return false;
     };
-
     const checkDraw = () => {
       let isDraw = [...boxes].every(box => box.innerText !== "");
       if (isDraw) {
         msg.innerText = "It's a Draw!";
-        msgContainer.classList.remove("hide");
+        msgContainer.classList.remove("hidden");
       }
     };
-
     newGameBtn.addEventListener("click", resetGame);
     resetBtn.addEventListener("click", resetGame);
   </script>
